@@ -2,31 +2,32 @@ addons:
   postgresql: '10'
   apt:
     packages:
-    - postgresql-10
-    - postgresql-client-10
+      - postgresql-10
+      - postgresql-client-10
 env:
   global:
-  - PGPORT=5433
-  - CC_TEST_REPORTER_ID=d467960c7521db9632cd79e05b29c7b8cddd14ea67c73189e5be5a7569c74f27
+    - PGPORT=5433
+  # - CC_TEST_REPORTER_ID=d467960c7521db9632cd79e05b29c7b8cddd14ea67c73189e5be5a7569c74f27
 before_script:
-- cp config/database.yml.travis config/database.yml
-- psql -c 'create database travis_ci_test;' -U postgres
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
-  > ./cc-test-reporter
-- chmod +x ./cc-test-reporter
-- ./cc-test-reporter before-build
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+# - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+#   > ./cc-test-reporter
+# - chmod +x ./cc-test-reporter
+# - ./cc-test-reporter before-build
 before_install:
-- gem install bundler -v 1.16.6
-- sudo sed -i -e '/local.*peer/s/postgres/all/' -e 's/peer\|md5/trust/g' /etc/postgresql/*/main/pg_hba.conf
-- sudo service postgresql restart
-- sleep 1
+  - gem install bundler -v 1.16.6
+  - sudo sed -i -e '/local.*peer/s/postgres/all/' -e 's/peer\|md5/trust/g' /etc/postgresql/*/main/pg_hba.conf
+  - sudo service postgresql restart
+  - sleep 1
 language: ruby
 cache: bundler
 rvm:
-- 2.5.1
+  - 2.5.1
 script:
-- bundle exec rails db:migrate RAILS_ENV=test
-- bundle exec rspec
+  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rspec
 after_success:
+  # - codecov
 # - ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.backend.json
-- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+# - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
