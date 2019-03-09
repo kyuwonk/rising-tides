@@ -51,6 +51,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   # Style checker for Ruby
   gem 'rubocop'
+  gem 'sentry-raven'
 end
 
 group :development do
