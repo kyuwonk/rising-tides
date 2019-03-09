@@ -45,6 +45,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Create random seed data
+  gem 'faker'
+  # Testing framework
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
@@ -65,7 +69,6 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'simplecov', require: false
-  gem 'rspec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -76,6 +79,3 @@ gem 'devise'
 gem 'cancancan', '~> 2.0'
 
 gem 'webpacker'
-
-# Create random seed data
-gem 'faker'
