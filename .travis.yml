@@ -20,7 +20,7 @@ before_script:
 - chmod +x ./cc-test-reporter
 - "./cc-test-reporter before-build"
 before_install:
-- gem install bundler -v 1.16.6
+- gem install bundler -v 2.0.1
 - sudo sed -i -e '/local.*peer/s/postgres/all/' -e 's/peer\|md5/trust/g' /etc/postgresql/*/main/pg_hba.conf
 - sudo service postgresql restart
 - sleep 1
